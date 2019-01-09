@@ -16,7 +16,7 @@ source ${location}/config.sh
 source ${location}/kernel/header.sh
 
 # do stuff before making any backup
-for files in $(ls ${location}/pre-backup/*); do
+for files in $(ls ${location}/pre-backup/); do
 	include ${location}/pre-backup/$files
 done
 
@@ -46,7 +46,7 @@ if [ -z "$1" ]; then
 fi
 
 # do stuff after the backups are done
-for files in $(ls ${location}/post-backup/*); do
+for files in $(ls ${location}/post-backup/); do
 	include ${location}/post-backup/$files
 done
 
