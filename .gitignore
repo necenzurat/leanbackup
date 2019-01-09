@@ -1,0 +1,6 @@
+# General
+.DS_Store
+
+# App specific
+.env
+google.json

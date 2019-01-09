@@ -5,7 +5,7 @@
 # @version  0.1.0
 # @date     2019-01-09
 # @license  DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-file 
+
 startTime=`date +%s`
 
 # path
@@ -15,26 +15,39 @@ appname=$(basename "$0")
 source ${location}/config.sh
 source ${location}/kernel/header.sh
 
-# load files, before 
-for files in $(ls ${location}/post-backup/*);
-do
-	source ${location}/post-backup/$files
+# do stuff before making any backup
+for files in $(ls ${location}/pre-backup/*); do
+	include ${location}/pre-backup/$files
 done
 
-if [ ! -z "$1" ];
-then
-    source ${location}/backup/$1/config;
-    source ${location}/backup/${backup_name}/policy/1-backup.sh
+# backup specific repo
+if [ ! -z "$1" ]; then
+    config=${location}/backups/$1/config;
+    if [[ -f "$config" ]]; then
+        cat $config
+    else
+        red "There is no backup named $1"
+    fi 
 fi
 
-for files in $(ls ${location}/after-backup/*);
-do
-	source ${location}/after-backup/$files
+# backup all repos
+if [ -z "$1" ]; then
+    echo 'Backup started';
+    for repository in $(ls ${location}/backups/); do
+        # load repo config
+        include ${location}/backups/$repository/config
+
+        for policy in $(ls ${location}/backups/$repository/policy/*);
+        do 
+            echo "Backing up $policy";
+            include $policy
+        done
+    done
+fi
+
+# do stuff after the backups are done
+for files in $(ls ${location}/post-backup/*); do
+	include ${location}/post-backup/$files
 done
-
-
-endTime=`date +%s`
-totalTimeInSeconds=$(expr $endTime - $startTime)
-totalTimeinMinutes=$(expr $totalTimeInSeconds / 60)
 
 source ${location}/kernel/footer.sh

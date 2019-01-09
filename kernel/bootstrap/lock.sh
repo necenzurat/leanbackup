@@ -10,7 +10,7 @@ else
 	    redb "The script is already running."
 	    exit 1;
 	else 
-		redb"The lockfile ($lockfile) has gone rogue."
+		redb "The lockfile ($lockfile) has gone rogue."
 		exit 1;
 	fi
 fi

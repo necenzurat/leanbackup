@@ -1,41 +1,40 @@
-if [ ! -z "$PROWL_API" ];
-then
-	prowl () {
-		curl https://api.prowlapp.com/publicapi/add \
+
+prowl () {
+	if [ ! -z "$PROWL_API" ]; then
+		curl -s -S https://api.prowlapp.com/publicapi/add \
 		-F apikey="$PROWL_API" \
 		-F priority=0 \
-		-F application="$APPNAME" \
-		-F event="$APPNAME sent a message" \
-		-F description="$1" #> /dev/null
-	}
-fi
+		-F application="$appName" \
+		-F event="$appName sent a message" \
+		-F description="$1" > /dev/null
+	else
+		echo "prowl not configured"
+	fi
+}
 
-if [ ! -z "$slackWebhook" ];
-then
-	function slack () {
 
-		echo $1
-		channel=$1
-		if [[ $channel == "" ]]
-		then
-				echo "No channel specified"
-				channel="#general"
-		fi
+function slack () {
+if [ ! -z "$slackWebhook" ]; then
+	echo $1
+	channel=$1
+	if [[ $channel == "" ]]
+	then
+		echo "No channel specified, using default channel #general"
+		channel="#general"
+	fi
 
-		shift
+	shift
 
-		text=$*
+	text=$*
 
-		if [[ $text == "" ]]
-		then
-				echo "No text specified"
-				exit 1
-		fi
+	if [[ $text == "" ]]
+	then
+		echo "No text specified"
+		exit 1
+	fi
 
-		escapedText=$(echo $text | sed 's/"/\"/g' | sed "s/'/\'/g" )
-		
-		json="{\"channel\": \"#$channel\", \"text\": \"$escapedText\", \"username\": \"$APPNAME\"}"
-
-		curl -X POST -H 'Content-type: application/json' --data "$json" https://hooks.slack.com/services/$slackWebhook
-	}
-fi
+	escapedText=$(echo $text | sed 's/"/\"/g' | sed "s/'/\'/g" )		
+	json="{\"channel\": \"#$channel\", \"text\": \"$escapedText\", \"username\": \"$appName\"}"
+	curl -X POST -H 'Content-type: application/json' --data "$json" $slackWebhook
+	fi
+}
