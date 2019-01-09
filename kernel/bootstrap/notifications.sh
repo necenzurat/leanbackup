@@ -1,8 +1,8 @@
 
 prowl () {
-	if [ ! -z "$PROWL_API" ]; then
+	if [ ! -z "$prowlApi" ]; then
 		curl -s -S https://api.prowlapp.com/publicapi/add \
-		-F apikey="$PROWL_API" \
+		-F apikey="$prowlApi" \
 		-F priority=0 \
 		-F application="$appName" \
 		-F event="$appName sent a message" \

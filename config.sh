@@ -2,7 +2,7 @@
 #
 # Prowl, available here: 
 # https://www.prowlapp.com/api_settings.php
-export PROWL_API=""
+export prowlApi=""
 
 # Slack
 # https://api.slack.com/apps
