@@ -4,13 +4,18 @@
 [![.restback](https://i.imgur.com/N5sjZig.png)](#)
 
 # `$ .restback`
+
 > Make backups ~~great~~ easy again.
 
-## Ussage
-meh
+## Usage
+
+📦  restback provides a simple way to backup stuff.
+It uses restic, and has a installer for generating backup policies.
+And it's all written in good ol' bash
 
 
-## 👔License
+## 👔 License
+
 [License](license.md)
 
 ## Credits
