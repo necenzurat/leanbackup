@@ -1,0 +1,33 @@
+#!/bin/bash
+#
+# ./restback - restic backups, made easy 
+#
+# @version  0.1.0
+# @date     2019-01-09
+# @license  DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+file 
+startTime=`date +%s`
+
+# path
+location="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+appname=$(basename "$0")
+
+source ${location}/config.sh
+source ${location}/kernel/header.sh
+
+
+if [ ! -z "$1" ];
+then
+    source ${location}/backup/$1/config;
+    source ${location}/backup/${backup_name}/policy/1-backup.sh
+fi
+
+
+source ${location}/after-backup.sh
+
+
+endTime=`date +%s`
+totalTimeInSeconds=$(expr $endTime - $startTime)
+totalTimeinMinutes=$(expr $totalTimeInSeconds / 60)
+
+source ${location}/kernel/footer.sh
