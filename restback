@@ -36,6 +36,7 @@ if [ -z "$1" ]; then
     for repository in $(ls ${location}/backups/); do
         # load repo config
         include ${location}/backups/$repository/config
+        include ${location}/backups/$repository/.env
 
         for policy in $(ls ${location}/backups/$repository/policy/*);
         do 
