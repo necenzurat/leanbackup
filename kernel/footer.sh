@@ -2,14 +2,15 @@ endTime=`date +%s`
 totalTimeInSeconds=$(expr $endTime - $startTime)
 totalTimeinMinutes=$(expr $totalTimeInSeconds / 60)
 
-# sizeForRestoring=$(restic stats)
-# sizeInRepository=$(restic stats --mode raw-data)
+if [ ! -z ${totalTimeInSeconds} ]; then
+    if [ "$totalTimeInSeconds" -gt "60" ]; then
+        runTime=$totalTimeinMinutes
+    else 
+        runTime=$totalTimeInSeconds
+    fi
+fi
 
-# size=$(df -h);
-# text="
-# Backup took $totalTimeinMinutes ⌚";
-
-
-
-# slack "#general" "$text"
-# prowl "$text"
+# if [ ! -z "$notifyWhenBackupsAreDone" ]; then
+#     prowl "Backup run, took $runTime ⌚";
+#     slack "Backup run, took $runTime ⌚";
+# fi

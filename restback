@@ -10,10 +10,10 @@ startTime=`date +%s`
 
 # path
 location="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-appname=$(basename "$0")
 
-source ${location}/config.sh
 source ${location}/kernel/header.sh
+
+# include debug.sh
 
 # do stuff before making any backup
 for files in $(ls ${location}/pre-backup/); do
@@ -22,9 +22,10 @@ done
 
 # backup specific repo
 if [ ! -z "$1" ]; then
-    config=${location}/backups/$1/config;
-    if [[ -f "$config" ]]; then
-        cat $config
+    envPath=${location}/backups/$1/.env;
+    if [[ -f "$envPath" ]]; then
+        repository=$1;
+        source ${location}/kernel/policy.sh
     else
         red "There is no backup named $1"
     fi 
@@ -32,18 +33,12 @@ fi
 
 # backup all repos
 if [ -z "$1" ]; then
-    echo 'Backup started';
+    logme 'Backup started';
     for repository in $(ls ${location}/backups/); do
         # load repo config
-        include ${location}/backups/$repository/config
-        include ${location}/backups/$repository/.env
-
-        for policy in $(ls ${location}/backups/$repository/policy/*);
-        do 
-            echo "Backing up $policy";
-            include $policy
-        done
+        source ${location}/kernel/policy.sh
     done
+    logme 'Backup ended';
 fi
 
 # do stuff after the backups are done

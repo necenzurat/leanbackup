@@ -15,20 +15,20 @@ prowl () {
 #
 function slack () {
 	if [ ! -z "$slackWehook" ]; then
-		text=$1
-		channel=$2
+		#channel=$1
+		text=$2
 		
 		if [[ $text == "" ]]; then
 			logme "No text specified, skipping"
 		fi
 
-		if [[ $channel == "" ]]; then
-			logme "No channel specified, using default channel #general"
-			channel="#general"
-		fi
+		# if [[ $channel == "" ]]; then
+		# 	logme "No channel specified, using default channel #general"
+		# 	channel="#general"
+		# fi
 
 		escapedText=$(echo $text | sed 's/"/\"/g' | sed "s/'/\'/g" )		
-		json="{\"channel\": \"#$channel\", \"text\": \"$escapedText\", \"username\": \"$appName\"}"
+		json="{\"text\": \"$escapedText\", \"username\": \"$appName\"}"
 		response=$(curl -s -X POST -H 'Content-type: application/json' --data "$json" $slackWehook)
 		if [ "$response" != "ok" ]; then
 			logme "Error posting to Slack"
