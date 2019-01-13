@@ -8,33 +8,32 @@ prowl () {
 		-F event="$appName sent a message" \
 		-F description="$1" > /dev/null
 	else
-		echo "prowl not configured"
+		logme "Prowl not configured"
 	fi
 }
 
-
+#
 function slack () {
-if [ ! -z "$slackWebhook" ]; then
-	echo $1
-	channel=$1
-	if [[ $channel == "" ]]
-	then
-		echo "No channel specified, using default channel #general"
-		channel="#general"
-	fi
+	if [ ! -z "$slackWehook" ]; then
+		text=$1
+		channel=$2
+		
+		if [[ $text == "" ]]; then
+			logme "No text specified, skipping"
+		fi
 
-	shift
+		if [[ $channel == "" ]]; then
+			logme "No channel specified, using default channel #general"
+			channel="#general"
+		fi
 
-	text=$*
-
-	if [[ $text == "" ]]
-	then
-		echo "No text specified"
-		exit 1
-	fi
-
-	escapedText=$(echo $text | sed 's/"/\"/g' | sed "s/'/\'/g" )		
-	json="{\"channel\": \"#$channel\", \"text\": \"$escapedText\", \"username\": \"$appName\"}"
-	curl -X POST -H 'Content-type: application/json' --data "$json" $slackWebhook
+		escapedText=$(echo $text | sed 's/"/\"/g' | sed "s/'/\'/g" )		
+		json="{\"channel\": \"#$channel\", \"text\": \"$escapedText\", \"username\": \"$appName\"}"
+		response=$(curl -s -X POST -H 'Content-type: application/json' --data "$json" $slackWehook)
+		if [ "$response" != "ok" ]; then
+			logme "Error posting to Slack"
+		fi
+	else
+		logme "Slack not configured"
 	fi
 }
