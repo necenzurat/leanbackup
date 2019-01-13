@@ -5,7 +5,7 @@ if [ "$errorLines" -gt "0" ]; then
     #prowl "Backup run, took $runTime ⌚";
     slack "an error occured\n$errorContents";
 else 
-    echo 'rm #rm -rf $errorLogsFile'
+    rm -rf $errorLogsFile;
 fi
 
 # if [ ! -z "$notifyWhenBackupsAreDone" ]; then
