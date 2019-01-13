@@ -22,7 +22,7 @@ function exitCleanup(){
 	rm -rf ${lockFile}
 	if [ ! -z ${totalTimeInSeconds} ]; then
 		if [ "$totalTimeInSeconds" -gt "60" ]; then
-			lightblueb "Runtime was: $totalTimeinMinutes minutes (or exactly totalTimeInSeconds seconds)"
+			lightblueb "Runtime was: $totalTimeinMinutes minutes (or exactly $totalTimeInSeconds seconds)"
 		else 
 			lightblueb "Runtime was: $totalTimeInSeconds seconds "
 		fi
