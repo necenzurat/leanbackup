@@ -5,7 +5,7 @@
 # @version  0.1.0
 # @date     2019-01-09
 # @license  DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-
+#set -x
 startTime=`date +%s`
 
 # path
@@ -28,7 +28,7 @@ if [ ! -z "$1" ]; then
     envPath=${location}/backups/$1/.env;
     if [[ -f "$envPath" ]]; then
         repository=$1;
-        source ${location}/kernel/time-policy.sh 
+        source ${location}/kernel/policies/policy.sh
     else
         red "There is no backup named $1"
         exit;
@@ -40,10 +40,11 @@ if [ -z "$1" ]; then
     logme 'Backup started';
     for repository in $(ls ${location}/backups/); do
         # load repo config
-        source ${location}/kernel/time-policy.sh 
+        source ${location}/kernel/policies/policy.sh
     done
     logme 'Backup ended';
 fi
+
 
 # do stuff after the backups are done
 for files in $(ls ${location}/post-backup/); do
@@ -51,5 +52,4 @@ for files in $(ls ${location}/post-backup/); do
 done
 
 source ${location}/kernel/notifications.sh 
-
 source ${location}/kernel/footer.sh 

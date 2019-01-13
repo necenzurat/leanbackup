@@ -1,0 +1,91 @@
+#!/bin/bash
+#
+# ./restic - the init 
+#
+# @version  0.1.0
+# @date     2019-01-09
+# @license  DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+
+startTime=`date +%s`
+
+# path
+location="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+errorLogsFile=${location}/storage/logs/.error.${RANDOM:0:10}.log
+
+source ${location}/kernel/header.sh
+
+# do stuff before making any backup
+for files in $(ls ${location}/pre-backup/); do
+	include ${location}/pre-backup/$files 
+done
+
+startMinute=$(date +"%M")
+startHour=$(date +"%H")
+
+
+envPath=${location}/backups/$1/.env;
+if [[ -f "$envPath" ]]; then
+    set -o allexport
+    include ${location}/backups/$1/.env
+    set +o allexport
+else
+    red "There is no repo named $1"
+    exit;
+fi 
+
+
+        
+while test $# -gt 0; do
+    case "$2" in
+        -h|--help)
+            echo "restic - env preloader and helper"
+            echo " "
+            echo "rest [repo] commands [arguments]"
+            echo " "
+            echo "options:"
+            echo "stats                     both stats"
+            echo "-o, --output-dir=DIR      specify a directory to store output in"
+            echo "-h, --help                show brief help"
+            exit 0
+            ;;
+        stats)
+            shift
+            if test $# -gt 0; then
+                restic stats
+                echo '==='
+                restic stats --mode raw-data
+            else
+                echo "no process specified"
+                exit 1
+            fi
+            shift
+            ;;
+        *)
+            shift
+            restic $@
+            break
+            ;;
+    esac
+done
+
+# # backup specific repo
+# if [ ! -z "$1" ]; then
+   
+# fi
+
+# # backup specific repo
+# if [[ "$2" == "size" ]]; then
+#     envPath=${location}/backups/$1/.env;
+#     if [[ -f "$envPath" ]]; then
+#         set -o allexport
+#         include ${location}/backups/$1/.env
+#         set +o allexport
+#         restic stats
+#         echo '==='
+#         restic stats --mode raw-data
+#     else
+#         red "There is no repo named $1"
+#         exit;
+#     fi 
+# fi

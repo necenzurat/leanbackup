@@ -10,6 +10,7 @@ totalTimeInMinutes=$(expr $totalTimeInSeconds / 60)
 #     fi
 # fi
 
+
 if [ ! -z ${totalTimeInSeconds} ]; then
     if [ "$totalTimeInSeconds" -gt "60" ]; then
         lightblueb "Runtime was: $totalTimeInMinutes minutes (or exactly $totalTimeInSeconds seconds)"
