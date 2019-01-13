@@ -9,4 +9,3 @@ if [ $skipPolicies ]; then
 else 
     include ${location}/kernel/policies/enabled.sh
 fi
-
