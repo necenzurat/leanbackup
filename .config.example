@@ -1,5 +1,10 @@
-# Config
+# The config file
 #
+# please rename this file from .config.example to .config
+#   
+# every function checks for the parameters to be set
+# if it's set, it will execute, else it will silently fail
+
 # Prowl, available here: 
 # https://www.prowlapp.com/api_settings.php
 export prowlApi=""
