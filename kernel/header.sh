@@ -15,7 +15,7 @@ source ${location}/kernel/bootstrap/locker.sh
 # notifications
 source ${location}/kernel/bootstrap/notifications.sh
 
-
+source ${location}/kernel/flags.sh
 
 # NOW STOP, HAMMER
 time=$(date +%Y-%m-%d-%H-%M-%S)
