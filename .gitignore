@@ -5,4 +5,4 @@
 .env
 google.json
 backups/
-ephemeral/
+*.log

@@ -19,14 +19,7 @@ errorLogger() {
 # smooth end of script
 function exitCleanup(){
 	lightblueb "Exiting..."; 
-	rm -rf ${lockFile}
-	if [ ! -z ${totalTimeInSeconds} ]; then
-		if [ "$totalTimeInSeconds" -gt "60" ]; then
-			lightblueb "Runtime was: $totalTimeInMinutes minutes (or exactly $totalTimeInSeconds seconds)"
-		else 
-			lightblueb "Runtime was: $totalTimeInSeconds seconds "
-		fi
-	fi
+	rm -rf ${lockFile}	
 	exit 1
 }
 

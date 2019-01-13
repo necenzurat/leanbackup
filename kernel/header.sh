@@ -13,7 +13,7 @@ source ${location}/kernel/bootstrap/logger.sh
 # locker
 source ${location}/kernel/bootstrap/locker.sh
 # notifications
-source ${location}/kernel/bootstrap/notifications.sh
+source ${location}/kernel/bootstrap/notification-providers.sh
 
 source ${location}/kernel/flags.sh
 
