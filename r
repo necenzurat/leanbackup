@@ -25,11 +25,12 @@ startHour=$(date +"%H")
 
 # backup specific repo
 if [ ! -z "$1" ]; then
+    envPath=${location}/backups/$1/.env;
     if [[ -f "$envPath" ]]; then
         set -o allexport
         include ${location}/backups/$1/.env
         set +o allexport
-        restic "$@"
+        restic "$2"
     else
         red "There is no repo named $1"
         exit;
