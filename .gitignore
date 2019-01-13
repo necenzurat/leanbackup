@@ -1,6 +1,8 @@
 # General
 .DS_Store
-backups/*
+
 # App specific
 .env
 google.json
+backups/
+ephemeral/
