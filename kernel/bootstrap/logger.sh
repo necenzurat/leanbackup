@@ -1,4 +1,4 @@
-logFile=${location}/ephemeral/.$appName.log
+logFile=${location}/storage/.$appName.log
 
 if [ ! -f $logFile ]; then
     touch $logFile

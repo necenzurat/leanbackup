@@ -10,10 +10,10 @@ errorLogger() {
 	else 
 		loggerMessage="$appName encountered an error at "${TIME}" in ${myself}: line ${lastLine}: exit status of last command: ${errorCode}\n"
 		yellow $loggerMessage
-		prowl loggerMessage;
+		#prowl loggerMessage;
 	fi
-	
-	red "Aborting, removing lockfile."
+	echo -e "$appName encountered an error around $myself line $lastLine: exit status of last command: $errorCode";
+	#red "Aborting, removing lockfile."
 }
 
 # smooth end of script
@@ -22,7 +22,7 @@ function exitCleanup(){
 	rm -rf ${lockFile}
 	if [ ! -z ${totalTimeInSeconds} ]; then
 		if [ "$totalTimeInSeconds" -gt "60" ]; then
-			lightblueb "Runtime was: $totalTimeinMinutes minutes (or exactly $totalTimeInSeconds seconds)"
+			lightblueb "Runtime was: $totalTimeInMinutes minutes (or exactly $totalTimeInSeconds seconds)"
 		else 
 			lightblueb "Runtime was: $totalTimeInSeconds seconds "
 		fi

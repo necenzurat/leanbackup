@@ -1,5 +1,5 @@
 # you only run once, yoro
-lockFile=${location}/ephemeral/.$appName.lock
+lockFile=${location}/storage/ephemeral/.$appName.lock
 
 if [ ! -f $lockFile ]; then
     touch $lockFile;

@@ -1,23 +1,33 @@
-while [ "$1" != "" ]; do
-    PARAM=`echo $1 | awk -F= '{print $1}'`
-    VALUE=`echo $1 | awk -F= '{print $2}'`
+# PARAMS=""
+# while (( "$#" )); do
+#   case "$1" in
+#     # -f|--flag-with-argument)
+#     #   FARG=$2
+#     #   shift 2
+#     #   ;;
+#     --cron| -cron)
+#     runningFromCron=true
+#       shift 2
+#       ;;
+#     --skip-time-policy| -no-time)
+#     skipTimePolicy=true
+#       shift 2
+#       ;;
+#     --) # end argument parsing
+#       shift
+#       break
+#       ;;
+#     -*|--*=) # unsupported flags
+#       echo "Error: Unsupported flag $1" >&2
+#       exit 1
+#       ;;
+#     *) # preserve positional arguments
+#       PARAMS="$PARAMS $1"
+#       shift
+#       ;;
+#   esac
+# break;
 
-    if [[ "$PARAM" == -* ]]; then
-        case $PARAM in
-            -h | --help)
-                echo "-h"
-                exit
-                ;;
-            --cron| -cron)
-                runningFromCron=true
-                ;;
-            *)
-                # echo "ERROR: unknown parameter \"$PARAM\""
-                # echo "*"
-                # exit 1
-                ;;
-        esac
-        shift;
-    fi;
-    break;
-done
+# done
+
+# echo $PARAMS
