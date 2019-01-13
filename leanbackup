@@ -31,6 +31,7 @@ if [ ! -z "$1" ]; then
         source ${location}/kernel/time-policy.sh 
     else
         red "There is no backup named $1"
+        exit;
     fi 
 fi
 

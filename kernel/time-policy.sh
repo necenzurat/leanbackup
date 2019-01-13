@@ -1,7 +1,6 @@
 include ${location}/backups/$repository/.env
 
 
-
 if [ $skipTimePolicy ]; then
     logme "[$backupName] manually skipping time policies"
     include ${location}/kernel/policy.sh
