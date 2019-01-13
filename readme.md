@@ -1,15 +1,15 @@
 <!-- psych -->
 
 
-[![.restback](https://i.imgur.com/N5sjZig.png)](#)
+[![.restback](https://i.imgur.com/COdScUo.png)](#)
 
-# `$ .restback`
+# `$ ./leanbackup`
 
 > Make backups ~~great~~ easy again.
 
 ## Usage
 
-📦  restback provides a simple way to backup stuff.
+📦  leanback provides a simple way to backup stuff.
 It uses restic, and has a installer for generating backup policies.
 And it's all written in good ol' bash
 
