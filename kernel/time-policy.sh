@@ -1,5 +1,7 @@
+# Load up .env
+set -o allexport
 include ${location}/backups/$repository/.env
-
+set +o allexport
 
 if [ $skipTimePolicy ]; then
     logme "[$backupName] manually skipping time policies"
