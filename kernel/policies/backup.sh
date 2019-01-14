@@ -1,7 +1,12 @@
 {
     for backupPolicy in $(ls ${location}/backups/$repository/backup/*); do 
         logme "[$backupName] Doing backup policy: $backupPolicy";
+        # $backupName"start"=$(date +%s.%N)
         include $backupPolicy
+        # $backupName"end"=$(date +%s.%N)
+        # DIFF=$(echo "$backupName"start" - $backupName"end"" | bc)
+        # red $DIFF
+        
         
         # errorLines=$(wc -l < $errorLogsFile);
         # if [ "$errorLines" -gt "0" ]; then
