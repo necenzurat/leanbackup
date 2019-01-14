@@ -14,11 +14,11 @@ if [ ! -z ${totalTimeInSeconds} ]; then
     fi
 fi
 
-
-# wip
-if [[ "$notifyWhenBackupsAreDone" == "true" ]]; then
-    #prowl "Backup run, took $runTime ⌚";
-    #slack "App run on $HOSTNAME run, \n\n$backupsThisRun";
+if [ ! -z "$backupsThisRun" ]; then
+    if [[ "$notifyWhenBackupsAreDone" == "true" ]]; then
+        #prowl "Backup run, took $runTime ⌚";
+        slack "⌚$appName run on $HOSTNAME, elasped: ⌚ $backupsThisRun";
+    fi
 fi
 
 rm -rf $errorLogsFile;
