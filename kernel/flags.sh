@@ -1,33 +1,32 @@
-# PARAMS=""
-# while (( "$#" )); do
-#   case "$1" in
-#     # -f|--flag-with-argument)
-#     #   FARG=$2
-#     #   shift 2
-#     #   ;;
-#     --cron| -cron)
-#     runningFromCron=true
-#       shift 2
-#       ;;
-#     --skip-time-policy| -no-time)
-#     skipTimePolicy=true
-#       shift 2
-#       ;;
-#     --) # end argument parsing
-#       shift
-#       break
-#       ;;
-#     -*|--*=) # unsupported flags
-#       echo "Error: Unsupported flag $1" >&2
-#       exit 1
-#       ;;
-#     *) # preserve positional arguments
-#       PARAMS="$PARAMS $1"
-#       shift
-#       ;;
-#   esac
-# break;
-
-# done
-
-# echo $PARAMS
+while test $# -gt 0; do
+    case "$2" in
+        -h|--help)
+            echo "leanbackup - lean back to bed"
+            echo " "
+            echo "./leanbackup [repo] commands [arguments]"
+            echo " "
+            echo "options:"
+            echo "stats                     both stats"
+            echo "-o, --output-dir=DIR      specify a directory to store output in"
+            echo "-h, --help                show brief help"
+            exit 0
+            ;;
+        # stats)
+        #     shift
+        #     if test $# -gt 0; then
+        #         restic stats
+        #         echo '==='
+        #         restic stats --mode raw-data
+        #     else
+        #         echo "no process specified"
+        #         exit 1
+        #     fi
+        #     shift
+        #     ;;
+        *)
+            shift
+            $0 $@
+            break
+            ;;
+    esac
+done

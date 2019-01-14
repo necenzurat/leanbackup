@@ -53,4 +53,4 @@ done
 
 
 source ${location}/kernel/footer.sh 
-source ${location}/kernel/notifications.sh 
+source ${location}/kernel/notifications.sh

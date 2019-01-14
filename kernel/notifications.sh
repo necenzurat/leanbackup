@@ -1,4 +1,4 @@
-errorLines=$(wc -l < $errorLogsFile);
+errorLines=$(wc -l $errorLogsFile | awk '{ print $1 }');
 
 if [ "$errorLines" -gt "0" ]; then
     errorContents=$(cat $errorLogsFile)
