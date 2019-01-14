@@ -28,12 +28,12 @@ All repoos are located into the backups folder, examples are located in the temp
 └── repo-name
     ├── .env (secrets file)
     ├── backup
-    │   ├── db-backup.sh (how backups are done)
-    │   └── files-backup.sh (how db backups are done)
+    │   ├── db-backup.sh (how the db backups are done)
+    │   └── files-backup.sh (how the backups are done)
     ├── cleanup
     │   └── cleanup.sh (how the clenup is done)
     └── sync
-        └── sync.sh (hot the syncing is done)
+        └── sync.sh (how the syncing is done)
 ```
 and that's about it.
 
