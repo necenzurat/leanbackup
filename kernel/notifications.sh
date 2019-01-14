@@ -10,5 +10,5 @@ fi
 
 if [[ "$notifyWhenBackupsAreDone" == "true" ]]; then
     #prowl "Backup run, took $runTime ⌚";
-    slack "Backup run, took $runTime ⌚";
+    slack "Backup on $HOSTNAME run, took $runTime ";
 fi

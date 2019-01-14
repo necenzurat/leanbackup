@@ -51,5 +51,6 @@ for files in $(ls ${location}/post-backup/); do
 	include ${location}/post-backup/$files 
 done
 
-source ${location}/kernel/notifications.sh 
+
 source ${location}/kernel/footer.sh 
+source ${location}/kernel/notifications.sh 
