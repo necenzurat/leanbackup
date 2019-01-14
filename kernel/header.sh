@@ -21,3 +21,5 @@ source ${location}/kernel/bootstrap/updater.sh
 
 # NOW STOP, HAMMER
 time=$(date +%Y-%m-%d-%H-%M-%S)
+
+backupsThisRun=""

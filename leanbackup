@@ -12,6 +12,7 @@ startTime=`date +%s`
 location="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 errorLogsFile=${location}/storage/logs/.error.${RANDOM:0:10}.log
+touch $errorLogsFile;
 
 source ${location}/kernel/header.sh
 

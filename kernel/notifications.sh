@@ -16,7 +16,7 @@ fi
 
 if [[ "$notifyWhenBackupsAreDone" == "true" ]]; then
     #prowl "Backup run, took $runTime ⌚";
-    slack "App run on $HOSTNAME run, took $runTime ⌚ ";
+    slack "App run on $HOSTNAME run, \n\n$backupsThisRun";
 fi
 
 rm -rf $errorLogsFile;
