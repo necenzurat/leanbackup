@@ -41,7 +41,7 @@ while test $# -gt 0; do
         -h|--help)
             echo "restic - env preloader and helper"
             echo " "
-            echo "rest [repo] commands [arguments]"
+            echo "./restic [repo] commands [arguments]"
             echo " "
             echo "options:"
             echo "stats                     both stats"
