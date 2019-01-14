@@ -17,7 +17,7 @@
         # fi
         # unset -v errorLines
         # unset -v errorMessage
-        backupsThisRun+="backup [$repository] $backupPolicy: time spent: $DIFF\n"
+        backupsThisRun+="Backup [$repository]\n$backupPolicy:\ntime spent: $DIFF\n"
     done
 
     for syncPolicy in $(ls ${location}/backups/$repository/sync/*); do 
@@ -29,7 +29,7 @@
         $repository"end"=$(date +%s.%N)
         DIFF=$(echo "$repository"start" - $repository"end"" | bc)
 
-        backupsThisRun+="Sync [$repository] $syncPolicy: time spent: $DIFF\n"
+        backupsThisRun+="Sync [$repository]\n$syncPolicy:\ntime spent: $DIFF\n"
     done
 
     for cleanupPolicy in $(ls ${location}/backups/$repository/cleanup/*); do 
@@ -41,7 +41,10 @@
         
         backupName"end"=$(date +%s.%N)
         DIFF=$(echo "$repository"start" - $repository"end"" | bc)
-        backupsThisRun+="Cleanup [$repository] $backupPolicy: time spent: $DIFF\n" 
+        backupsThisRun+="Cleanup [$repository]\n$cleanupPolicy:\ntime spent: $DIFF\n\n\n" 
 
     done
+    
+
+
 } 2>> $errorLogsFile
