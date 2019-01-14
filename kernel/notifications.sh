@@ -6,7 +6,7 @@ if [ "$errorLines" -gt "0" ]; then
     slack "====\nAn error occured\n$errorContents\n\n";
 fi
 
-if [ ! -z ${totalTimeInSeconds} ]; then
+if [ ! -z $totalTimeInSeconds ]; then
     if [ "$totalTimeInSeconds" -gt "60" ]; then
         runTime=$totalTimeInMinutes" seconds"
     else 
