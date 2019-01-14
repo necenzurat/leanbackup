@@ -6,7 +6,7 @@
         include $backupPolicy
         
         policyEndTime=$(date +%s)
-        differrence=$(echo $policyStartTime - $policyEndTime | bc)
+        differrence=$(echo $policyEndTime - $policyStartTime | bc)
 
         backupsThisRun+="Backup [$repository]\n$backupPolicy:\nElapsed: $differrence\n"
     done
@@ -18,7 +18,7 @@
         include $syncPolicy 
         
         policyEndTime=$(date +%s)
-        differrence=$(echo $policyStartTime - $policyEndTime | bc)
+        differrence=$(echo $policyEndTime - $policyStartTime | bc)
 
         backupsThisRun+="Sync [$repository]\n$syncPolicy:\nElapsed: $differrence\n"
     done
@@ -31,7 +31,7 @@
         include $cleanupPolicy 
         
         policyEndTime=$(date +%s)
-        differrence=$(echo $policyStartTime - $policyEndTime | bc)
+        differrence=$(echo $policyEndTime - $policyStartTime | bc)
 
         backupsThisRun+="Cleanup [$repository]\n$cleanupPolicy:\nElapsed: $differrence\n\n\n" 
     done
