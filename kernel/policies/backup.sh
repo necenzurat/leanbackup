@@ -1,50 +1,38 @@
 {
-    
     for backupPolicy in $(ls ${location}/backups/$repository/backup/*); do 
         logme "[$repository] Doing backup policy: $backupPolicy";
-        $repository"start"=$(date +%s.%N)
+        policyStartTime=$(date +%s)
         
         include $backupPolicy
         
-        $repository"end"=$(date +%s.%N)
-        DIFF=$(echo "$repository"start" - $repository"end"" | bc)
-       
-        
-        # errorLines=$(wc -l < $errorLogsFile);
-        # if [ "$errorLines" -gt "0" ]; then
-        #     errorMessage=$(cat $errorLogsFile)
-        #     slack "$errorMessage\n\nError occured: [$repository] - Backup policy: $backupPolicy"
-        # fi
-        # unset -v errorLines
-        # unset -v errorMessage
-        backupsThisRun+="Backup [$repository]\n$backupPolicy:\ntime spent: $DIFF\n"
+        policyEndTime=$(date +%s)
+        differrence=$(echo $policyStartTime - $policyEndTime | bc)
+
+        backupsThisRun+="Backup [$repository]\n$backupPolicy:\nElapsed: $differrence\n"
     done
 
     for syncPolicy in $(ls ${location}/backups/$repository/sync/*); do 
         logme "[$repository] Doing sync policy: $syncPolicy";
-        $repository"start"=$(date +%s.%N)
+        policyStartTime=$(date +%s)
         
         include $syncPolicy 
         
-        $repository"end"=$(date +%s.%N)
-        DIFF=$(echo "$repository"start" - $repository"end"" | bc)
+        policyEndTime=$(date +%s)
+        differrence=$(echo $policyStartTime - $policyEndTime | bc)
 
-        backupsThisRun+="Sync [$repository]\n$syncPolicy:\ntime spent: $DIFF\n"
+        backupsThisRun+="Sync [$repository]\n$syncPolicy:\nElapsed: $differrence\n"
     done
 
     for cleanupPolicy in $(ls ${location}/backups/$repository/cleanup/*); do 
         logme "[$repository] Doing cleanup policy: $cleanupPolicy";
         
-        $repository"start"=$(date +%s.%N)
+        policyStartTime=$(date +%s)
         
         include $cleanupPolicy 
         
-        backupName"end"=$(date +%s.%N)
-        DIFF=$(echo "$repository"start" - $repository"end"" | bc)
-        backupsThisRun+="Cleanup [$repository]\n$cleanupPolicy:\ntime spent: $DIFF\n\n\n" 
+        policyEndTime=$(date +%s)
+        differrence=$(echo $policyStartTime - $policyEndTime | bc)
 
+        backupsThisRun+="Cleanup [$repository]\n$cleanupPolicy:\nElapsed: $differrence\n\n\n" 
     done
-    
-
-
 } 2>> $errorLogsFile
