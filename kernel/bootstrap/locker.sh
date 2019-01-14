@@ -6,7 +6,6 @@ if [[ "$enableLock" == "true" ]]; then
 
 	if [ ! -f $lockFile ]; then
 		touch $lockFile;
-		echo creating lock
 	else 
 		redb "Failed to acquire lock."
 		self=$(basename "$0")	
