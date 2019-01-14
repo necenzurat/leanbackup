@@ -15,7 +15,8 @@ And it's all written in good ol' bash.
 
 ## Usage
 
-
+1. Run the installer
+2. Forget about it
 
 
 ## Repo structure
