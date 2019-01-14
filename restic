@@ -53,7 +53,7 @@ while test $# -gt 0; do
             echo "-h, --help                show brief help"
             exit 0
             ;;
-        stats)
+        s)
             shift
             if test $# -gt 0; then
                 restic stats
