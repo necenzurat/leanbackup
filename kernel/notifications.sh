@@ -4,8 +4,6 @@ if [ "$errorLines" -gt "0" ]; then
     errorContents=$(cat $errorLogsFile)
     #prowl "Backup run, took $runTime ⌚";
     slack "====\nAn error occured\n$errorContents\n\n";
-else 
-    rm -rf $errorLogsFile;
 fi
 
 
@@ -20,5 +18,7 @@ fi
 
 if [[ "$notifyWhenBackupsAreDone" == "true" ]]; then
     #prowl "Backup run, took $runTime ⌚";
-    slack "Backup on **$HOSTNAME** run, took $runTime ⌚ ";
+    slack "App run on $HOSTNAME run, took $runTime ⌚ ";
 fi
+
+rm -rf $errorLogsFile;
