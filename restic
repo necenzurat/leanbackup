@@ -13,7 +13,11 @@ location="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 errorLogsFile=${location}/storage/logs/.error.${RANDOM:0:10}.log
 touch $errorLogsFile;
+
+enableLock="true"
+
 source ${location}/kernel/header.sh
+
 
 # do stuff before making any backup
 for files in $(ls ${location}/pre-backup/); do
