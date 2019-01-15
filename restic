@@ -18,30 +18,48 @@ enableLock="false"
 source ${location}/kernel/header.sh
 
 
-# do stuff before making any backup
-for files in $(ls ${location}/pre-backup/); do
-	include ${location}/pre-backup/$files 
-done
-
 startMinute=$(date +"%M")
 startHour=$(date +"%H")
 
-# backup specific repo
-# if [ "$aRepository" ]; then
-# echo $aRepository;
-# exit 1;
 
-# fi 
+selectedRepo=$1
 
-envPath=${location}/backups/$1/.env;
-if [[ -f "$envPath" ]]; then
-    set -o allexport
-    include ${location}/backups/$1/.env
-    set +o allexport
-else
-    red "There is no repo named $1"
-    exit;
-fi 
+repository () {
+    for repo in $(ls ${location}/backups/); do
+        if [[ "$repo" == "$selectedRepo" ]]; then
+            echo "manually doing $repository ..."
+            set -o allexport
+            include ${location}/backups/$repo/.env
+            set +o allexport
+        else 
+            repository="all"
+        fi
+    done
+
+    if [[ "$repository" == "all" ]]; then
+        for repository in $(ls ${location}/backups/); do
+            set -o allexport
+            include ${location}/backups/$repository/.env
+            set +o allexport
+            echo "executing $1 on $repository ..."
+            $1
+        done
+    fi 
+}
+
+
+repoStats (){
+    restic stats
+    echo -e "\n\n"
+    restic stats --mode raw-data
+    echo "========================================"
+}
+
+
+repoSnapshots (){
+    restic snapshots
+    echo "\n========================================"
+}
 
 
 while test $# -gt 0; do
@@ -57,16 +75,14 @@ while test $# -gt 0; do
             echo "-h, --help                show brief help"
             exit 0
             ;;
-        s)
+        -s|--stats)
             shift
-            if test $# -gt 0; then
-                restic stats
-                echo '==='
-                restic stats --mode raw-data
-            else
-                echo "no process specified"
-                exit 1
-            fi
+            repository repoStats
+            shift
+            ;;
+        -snap|--snap)
+            shift
+            repository repoSnapshots
             shift
             ;;
         *)
@@ -76,27 +92,3 @@ while test $# -gt 0; do
             ;;
     esac
 done
-
-
-
-
-# # backup specific repo
-# if [ ! -z "$1" ]; then
-   
-# fi
-
-# # backup specific repo
-# if [[ "$2" == "size" ]]; then
-#     envPath=${location}/backups/$1/.env;
-#     if [[ -f "$envPath" ]]; then
-#         set -o allexport
-#         include ${location}/backups/$1/.env
-#         set +o allexport
-#         restic stats
-#         echo '==='
-#         restic stats --mode raw-data
-#     else
-#         red "There is no repo named $1"
-#         exit;
-#     fi 
-# fi
