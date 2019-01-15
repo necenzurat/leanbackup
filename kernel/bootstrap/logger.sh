@@ -1,4 +1,4 @@
-logFile=${location}/storage/.$appName.log
+logFile=${location}/storage/logs/$selfBash.log
 
 if [ ! -f $logFile ]; then
     touch $logFile

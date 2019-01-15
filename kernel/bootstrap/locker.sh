@@ -1,9 +1,8 @@
 # you only run once, yoro
-lockFile=${location}/storage/ephemeral/.$appName.lock
+lockFile=${location}/storage/.$selfBash.lock
 
 # only when we doing backup
 if [[ "$enableLock" == "true" ]]; then
-
 	if [ ! -f $lockFile ]; then
 		touch $lockFile;
 	else 

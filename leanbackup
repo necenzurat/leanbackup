@@ -11,9 +11,6 @@ startTime=`date +%s`
 # path
 location="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-errorLogsFile=${location}/storage/logs/.error.${RANDOM:0:10}.log
-touch $errorLogsFile;
-
 enableLock="true"
 
 source ${location}/kernel/header.sh
@@ -48,12 +45,10 @@ if [ -z "$1" ]; then
     logme 'Backup ended';
 fi
 
-
 # do stuff after the backups are done
 for files in $(ls ${location}/post-backup/); do
 	include ${location}/post-backup/$files 
 done
-
 
 source ${location}/kernel/footer.sh 
 source ${location}/kernel/notifications.sh
