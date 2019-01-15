@@ -15,7 +15,7 @@ source ${location}/kernel/bootstrap/locker.sh
 # notifications
 source ${location}/kernel/bootstrap/notification-providers.sh
 
-#source ${location}/kernel/flags.sh
+source ${location}/kernel/flags.sh
 
 source ${location}/kernel/bootstrap/updater.sh
 

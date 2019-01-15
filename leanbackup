@@ -24,19 +24,13 @@ startMinute=$(date +"%M")
 startHour=$(date +"%H")
 
 # backup specific repo
-if [ ! -z "$1" ]; then
-    envPath=${location}/backups/$1/.env;
-    if [[ -f "$envPath" ]]; then
-        repository=$1;
-        source ${location}/kernel/policies/policy.sh
-    else
-        red "There is no backup named $1"
-        exit;
-    fi 
-fi
+if [ "$aRepository" ]; then
+    repository=$aRepository
+    source ${location}/kernel/policies/policy.sh
+fi 
 
 # backup all repos
-if [ -z "$1" ]; then
+if [ -z "$aRepository" ]; then
     logme 'Backup started';
     for repository in $(ls ${location}/backups/); do
         # load repo config
