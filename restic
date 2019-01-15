@@ -21,32 +21,34 @@ source ${location}/kernel/header.sh
 startMinute=$(date +"%M")
 startHour=$(date +"%H")
 
-
 selectedRepo=$1
-
 repository () {
     for repo in $(ls ${location}/backups/); do
         if [[ "$repo" == "$selectedRepo" ]]; then
-            echo "manually doing $repository ..."
+            echo "loading .env $repo..."
             set -o allexport
             include ${location}/backups/$repo/.env
             set +o allexport
-        else 
-            repository="all"
+            echo "command is restic $@"
+            restic $@
+
+        # else 
+        #     red "Repository $repo does not exist"
         fi
     done
 
-    if [[ "$repository" == "all" ]]; then
-        for repository in $(ls ${location}/backups/); do
-            set -o allexport
-            include ${location}/backups/$repository/.env
-            set +o allexport
-            echo "executing $1 on $repository ..."
-            $1
-        done
-    fi 
 }
 
+#     if [[ "$repository" == "all" ]]; then
+#         for repository in $(ls ${location}/backups/); do
+#             set -o allexport
+#             include ${location}/backups/$repository/.env
+#             set +o allexport
+#             echo "executing $1 on $repository ..."
+#             echo $1 $2 $3
+#         done
+#     fi 
+# shift
 
 repoStats (){
     restic stats
@@ -55,12 +57,13 @@ repoStats (){
     echo "========================================"
 }
 
-
 repoSnapshots (){
     restic snapshots
     echo "\n========================================"
 }
 
+# echo $1
+# exit 1;
 
 while test $# -gt 0; do
     case "$1" in
@@ -80,14 +83,23 @@ while test $# -gt 0; do
             repository repoStats
             shift
             ;;
-        -snap|--snap)
+        -snap|--snapshots)
             shift
             repository repoSnapshots
             shift
             ;;
         *)
+            #echo "got to * now executing restic $@"
             shift
-            restic $@
+            repository $@
+            
+            # shift
+            # repository $@ 
+
+            # exit 1;
+            # shift
+            
+            #restic $@
             break
             ;;
     esac
